@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "shinobi",
+    "slug": "shinobi",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
