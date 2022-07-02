@@ -2,7 +2,7 @@ import React, {useContext, useState} from "react";
 import {Image, SafeAreaView, TouchableOpacity, View} from "react-native";
 import {DrawerItem} from "@react-navigation/drawer";
 import {colors, styles} from "../../styles/Styles";
-import {AntDesign, FontAwesome} from "@expo/vector-icons";
+import {AntDesign, Entypo, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 import {Center, Icon, Text} from "native-base";
 import logo from "../../assets/logo.png";
 import LogoutModal from "../LogoutModal";
@@ -29,13 +29,23 @@ const SidebarNavigationMenu = ({navigation}) => {
              activeTintColor={colors.lightColor}
              inactiveTintColor={colors.gray}
              icon={({focused, color, size })=>(
-               <Icon color={state.index===0 ? colors.lightColor : colors.gray}  size="5" as={AntDesign} name="flag" />
+               <Icon color={state.index===0 ? colors.lightColor : colors.gray}  size="5" as={MaterialIcons} name="live-tv" />
+             )}
+           />
+           <DrawerItem
+             label={'Search Recordings'}
+             focused={state.index === 1}
+             onPress={()=>navigation.navigate('AllRecordings')}
+             activeTintColor={colors.lightColor}
+             inactiveTintColor={colors.gray}
+             icon={({focused, color, size })=>(
+               <Icon color={state.index===1 ? colors.lightColor : colors.gray}  size="5" as={MaterialCommunityIcons} name="record-player" />
              )}
            />
            <DrawerItem
              style={styles.mT5}
              label={'Logout'}
-             focused={state.index === 1}
+             focused={state.index === 2}
              onPress={()=> {
                setIsOpen(true)
                navigation.closeDrawer()
@@ -43,7 +53,7 @@ const SidebarNavigationMenu = ({navigation}) => {
              activeTintColor={colors.lightColor}
              inactiveTintColor={colors.gray}
              icon={({focused, color, size })=>(
-               <Icon color={state.index===1 ? colors.lightColor : colors.gray}  size="5" as={AntDesign} name="logout" />
+               <Icon color={state.index===2 ? colors.lightColor : colors.gray}  size="5" as={AntDesign} name="logout" />
              )}
            />
          </View>

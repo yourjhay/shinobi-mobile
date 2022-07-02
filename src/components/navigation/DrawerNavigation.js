@@ -4,12 +4,15 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from "../../screens/HomeScreen";
 import NavigationHeader from "./NavigationHeader";
 import SidebarNavigationMenu from "./SidebarNavigationMenu";
+import AllRecordings from "../../screens/Videos/AllRecordings";
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
   const DrawerScreens = [
     {name:"Home",component:HomeScreen, showHeader:true, header: NavigationHeader},
+    {name:"AllRecordings",component:AllRecordings, showHeader:true, header: NavigationHeader},
+
   ];
 
   return (

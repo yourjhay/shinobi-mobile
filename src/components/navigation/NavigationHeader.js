@@ -11,7 +11,7 @@ const NavigationHeader = ({navigation}) => {
     <View style={[styles.flex, styles.justifySpaceBetween, styles.flexRow, styles.alignCenter, styles.p1,{backgroundColor:'rgb(15, 15, 15)'}]} >
       <TouchableOpacity onPress={() => navigation.openDrawer()}>
         <Text>
-          <Icon color={'#F06D19'}  size="5" as={AntDesign} name="menu-fold" />
+          <Icon color={'#00adf5'}  size="6" as={AntDesign} name="menu-fold" />
         </Text>
       </TouchableOpacity>
       <Image source={logo} style={{height:30,width:30}} resizeMode={'contain'} />

@@ -5,6 +5,8 @@ export const AuthContext = createContext(undefined);
 export const AuthProvider = (props) => {
   const [user, setUser] = useState(undefined)
   const [token, setToken] = useState(undefined)
+  const [monitors, setMonitors] = useState(undefined)
+
   const [passwordReset, setPasswordReset] = useState({
     code:'',
     email:''
@@ -13,7 +15,8 @@ export const AuthProvider = (props) => {
   const contextValue = {
     user, setUser,
     token, setToken,
-    passwordReset, setPasswordReset
+    passwordReset, setPasswordReset,
+    monitors, setMonitors
   }
 
   return (
