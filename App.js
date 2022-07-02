@@ -1,13 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
+import { NativeBaseProvider } from "native-base";
+import {theme} from './src/styles/theme'
+import Navigation from "./src/components/navigation/Navigation";
+import {AuthProvider} from "./src/context/AuthContext";
+import 'react-native-gesture-handler';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NativeBaseProvider theme={theme}>
+      <StatusBar translucent backgroundColor={'#000'} />
+      <AuthProvider>
+        <Navigation/>
+      </AuthProvider>
+    </NativeBaseProvider>
   );
 }
 
