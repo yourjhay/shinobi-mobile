@@ -2,7 +2,16 @@
   "expo": {
     "name": "shinobi",
     "slug": "shinobi",
-    "version": "1.0.0",
+    "version": "1.0.1",
+    "splash": {
+      "image": "./src/assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#121212"
+    },
+    "updates": {
+      "checkAutomatically": "ON_ERROR_RECOVERY",
+      "fallbackToCacheTimeout": 0
+    },
     "assetBundlePatterns": [
       "**/*"
     ],

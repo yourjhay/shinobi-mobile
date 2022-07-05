@@ -43,9 +43,19 @@ const SidebarNavigationMenu = ({navigation}) => {
              )}
            />
            <DrawerItem
+             label={'Check for Updates'}
+             focused={state.index === 2}
+             onPress={()=>navigation.navigate('Update')}
+             activeTintColor={colors.lightColor}
+             inactiveTintColor={colors.gray}
+             icon={({focused, color, size })=>(
+               <Icon color={state.index===2 ? colors.lightColor : colors.gray}  size="5" as={AntDesign} name="clouddownload" />
+             )}
+           />
+           <DrawerItem
              style={styles.mT5}
              label={'Logout'}
-             focused={state.index === 2}
+             focused={state.index === 3}
              onPress={()=> {
                setIsOpen(true)
                navigation.closeDrawer()
@@ -53,7 +63,7 @@ const SidebarNavigationMenu = ({navigation}) => {
              activeTintColor={colors.lightColor}
              inactiveTintColor={colors.gray}
              icon={({focused, color, size })=>(
-               <Icon color={state.index===2 ? colors.lightColor : colors.gray}  size="5" as={AntDesign} name="logout" />
+               <Icon color={state.index===3 ? colors.lightColor : colors.gray}  size="5" as={AntDesign} name="logout" />
              )}
            />
          </View>
