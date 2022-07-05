@@ -4,7 +4,7 @@ import {styles} from "../../styles/Styles";
 import {Icon, Text} from "native-base";
 import {AuthContext} from "../../context/AuthContext";
 import {videos} from "../../utilities/api";
-import {AntDesign} from "@expo/vector-icons";
+import {AntDesign, FontAwesome} from "@expo/vector-icons";
 import moment from "moment";
 import { Video, AVPlaybackStatus } from 'expo-av';
 import VideoModal from "../../components/VideoModal";
@@ -28,7 +28,7 @@ const Recordings = ({route,navigation}) => {
 
   const getVideos = async () => {
     setLoading(true)
-    await videos(token,user.ke, monitor.mid, 40).then(res=>{
+    await videos(token,user.ke, monitor.mid, 100).then(res=>{
       setData(res.videos)
       console.log(res.videos)
     }).catch(err=>{
@@ -39,16 +39,16 @@ const Recordings = ({route,navigation}) => {
 
   const renderItem = ({item}) => (
     <View style={[styles.p1, styles.backgroundSemiDark, styles.rounded, styles.mY1_2, styles.flexRow, styles.justifySpaceBetween, styles.alignCenter]}>
-        <View style={[styles.flex,styles.justifySpaceBetween]}>
+        <TouchableOpacity onPress={()=>setVideo(item)} style={[styles.flex,styles.justifySpaceBetween]}>
           <Text fontSize={"lg"} bold>{item.filename}</Text>
           <View style={[styles.flex, styles.flexRow]}>
             <Text>{moment(item.time).format('Y-MM-DD')} </Text>
             <Text bold style={styles.textGray}>({moment(item.time).format('hh:mm A')} - {moment(item.end).format('hh:mm A')} )</Text>
           </View>
           <Text>{(item.size / 1048576).toFixed(2)} MB</Text>
-        </View>
-      <TouchableOpacity onPress={()=>setVideo(item)}>
-        <Icon as={AntDesign} name={"play"} size={8}/>
+        </TouchableOpacity>
+      <TouchableOpacity onPress={()=>navigation.navigate('DownloadScreen',{video:item})}>
+        <Icon as={FontAwesome} name={"download"} size={6}/>
       </TouchableOpacity>
     </View>
   )
@@ -78,7 +78,7 @@ const Recordings = ({route,navigation}) => {
         <VideoModal video={video} setIsOpen={()=>{
           setOpen(false)
           setVideo(undefined)
-        }} isOpen={open}/>
+        }} navigation={navigation} isOpen={open}/>
       }
       <FlatList
         contentContainerStyle={{ flexGrow: 1, marginTop:20 }}

@@ -13,6 +13,8 @@ import Header from "../Header";
 import AppContainer from "../AppContainer";
 import DrawerNavigation from "./DrawerNavigation";
 import Recordings from "../../screens/Videos/Recordings";
+import DownloadScreen from "../../screens/DownloadScreen";
+import axios from "axios";
 
 
 const Stack = createNativeStackNavigator();
@@ -24,7 +26,7 @@ const LoadingScreen = () => (
 )
 
 const Navigation = () => {
-  const {user, token, setUser, setToken} = useContext(AuthContext)
+  const {user, token, setUser, setToken, setAxiosURI} = useContext(AuthContext)
   const [loading, setLoading] = useState(true)
 
   useEffect(()=>{
@@ -36,9 +38,12 @@ const Navigation = () => {
     try {
       const _user = await AsyncStorage.getItem('user')
       const _token = await AsyncStorage.getItem('token')
+      const _uri = await AsyncStorage.getItem('axiosURI')
+      axios.defaults.baseURL= _uri
       if(_user !== null && _token !== null) {
         setUser(JSON.parse(_user))
         setToken(_token)
+        setAxiosURI(_uri)
       }
     } catch(e) {
       alert('Error while reading user information.')
@@ -49,6 +54,7 @@ const Navigation = () => {
   const stackScreens = [
     {name:'HomeScreen',component:DrawerNavigation,animation:'fade',headerShown:false},
     {name:'Recordings',component:Recordings,animation:'slide_from_right',headerShown:true},
+    {name:'DownloadScreen',component:DownloadScreen,animation:'slide_from_right',headerShown:true},
   ]
 
   return (

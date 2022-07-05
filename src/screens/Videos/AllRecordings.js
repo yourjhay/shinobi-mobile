@@ -10,7 +10,7 @@ import {AuthContext} from "../../context/AuthContext";
 import {Entypo, FontAwesome} from "@expo/vector-icons";
 import VideoModal from "../../components/VideoModal";
 
-const AllRecordings = () => {
+const AllRecordings = ({navigation}) => {
   const {user, token, monitors} = useContext(AuthContext)
   const [selectedDay, setSelectedDay] = useState(moment().format('Y-MM-DD'))
   const [data, setData] = useState([])
@@ -50,15 +50,18 @@ const AllRecordings = () => {
   }
 
   const renderItem = ({item}) => (
-    <TouchableOpacity onPress={()=>setVideo(item)} style={[styles.p1, styles.rounded, styles.backgroundSemiDark, styles.mY1_2]}>
-      <View style={[styles.flex,styles.justifySpaceBetween]}>
-        <View style={[styles.flex, styles.flexRow]}>
+    <View  style={[styles.p1, styles.rounded, styles.backgroundSemiDark, styles.mY1_2, styles.flex, styles.flexRow, styles.justifySpaceBetween, styles.alignCenter]}>
+      <TouchableOpacity onPress={()=>setVideo(item)} style={[styles.flex,styles.justifySpaceBetween]}>
+        <View  style={[styles.flex, styles.flexRow]}>
           <Text>{moment(item.time).format('Y-MM-DD')} </Text>
           <Text bold style={styles.textGray}>({moment(item.time).format('hh:mm A')} - {moment(item.end).format('hh:mm A')} )</Text>
         </View>
         <Text>{(item.size / 1048576).toFixed(2)} MB</Text>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=>navigation.navigate('DownloadScreen',{video:item})}>
+        <Icon as={FontAwesome} name={"download"} size={6}/>
+      </TouchableOpacity>
+    </View>
   )
 
   const renderEmpty = () => (
@@ -85,7 +88,7 @@ const AllRecordings = () => {
         <VideoModal video={video} setIsOpen={()=>{
           setOpen(false)
           setVideo(undefined)
-        }} isOpen={open}/>
+        }} navigation={navigation} isOpen={open}/>
       }
      <View style={[styles.flex, styles.justifySpaceBetween, styles.flexRow, styles.alignCenter]}>
        <Text fontSize={"lg"}>Search Video Recordings</Text>

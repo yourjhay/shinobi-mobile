@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {styles} from "../../styles/Styles";
 import {Text, Button, Icon} from "native-base";
 import {View, Image, TouchableOpacity} from "react-native";
@@ -10,29 +10,37 @@ import {AuthContext} from "../../context/AuthContext";
 import useError from "../../hooks/useError";
 import {login} from "../../utilities/api";
 import useLogin from "../../hooks/useLogin";
+import axios from "axios";
 
 const LoginScreen = ({navigation}) => {
-  const {setUser, setToken} = useContext(AuthContext);
+  const {setUser, setToken, setAxiosURI} = useContext(AuthContext);
   const setLogin = useLogin();
+  const[uri,setUri] =useState('http://192.168.1.100:8080');
+
+  useEffect(()=>{
+    axios.defaults.baseURL = uri
+    setAxiosURI(uri)
+  },[uri])
 
   const [params, setParams] = useState({
     mail:'cherryanndiarios@gmail.com',
-    pass:'passmein07',
+    pass:'',
     machineID:'GNSGH39352'
   });
+
   const {handleError, feedback, getError , setErrors} = useError()
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async () => {
     setLoading(true)
     await login(params).then(res=>{
-
       if(res.ok === false) {
         alert('Invalid Login credentials')
       } else {
-        setLogin(res.$user)
+        setLogin(res.$user, uri)
       }
     }).catch(err=>{
+      alert('Error while logging in. Please check server and URI')
       console.log(err)
     })
     setLoading(false)
@@ -50,6 +58,12 @@ const LoginScreen = ({navigation}) => {
           :
           <Text style={[styles.textGray, styles.mY1]}>Please sign-in to continue.</Text>
       }
+      <TextBox
+        value={uri}
+        onChangeText={text=>setUri(text)}
+        label={'URI'}
+        icon={ <Icon  size="5" as={FontAwesome} name="globe" />}
+      />
       <TextBox
         value={params.mail}
         onChangeText={text=>setParams({...params, mail:text})}

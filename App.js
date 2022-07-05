@@ -5,6 +5,7 @@ import {theme} from './src/styles/theme'
 import Navigation from "./src/components/navigation/Navigation";
 import {AuthProvider} from "./src/context/AuthContext";
 import 'react-native-gesture-handler';
+import "./src/utilities/config"
 
 export default function App() {
   return (

@@ -2,17 +2,14 @@ import React, {useContext, useState} from "react";
 import PropTypes from 'prop-types';
 import {Button, Icon, Modal, Text} from "native-base";
 import {colors, styles} from "../styles/Styles";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {AuthContext} from "../context/AuthContext";
-import { Video, AVPlaybackStatus } from 'expo-av'
-import {APP_API} from "../utilities/config";
+import { Video } from 'expo-av'
 import moment from "moment";
 import {TouchableOpacity, View} from "react-native";
-import {AntDesign} from "@expo/vector-icons";
+import {AntDesign, FontAwesome} from "@expo/vector-icons";
 
-const VideoModal = ({isOpen, setIsOpen, video}) => {
-  const {user, token} = useContext(AuthContext)
-  const [loading, setLoading] = useState(false);
+const VideoModal = ({isOpen, setIsOpen, video, navigation}) => {
+  const {user, token, axiosURI} = useContext(AuthContext)
   const _video = React.useRef(null);
   const [status, setStatus] = React.useState({});
   const [rate, setRate] = useState(1);
@@ -38,7 +35,17 @@ const VideoModal = ({isOpen, setIsOpen, video}) => {
       },
     }} isOpen={isOpen} defaultIsOpen={true} onClose={()=>setIsOpen(false)} size={"xl"}>
       <Modal.Content>
-        <Modal.Header>{video?.filename}</Modal.Header>
+        <Modal.Header>
+          <View style={[styles.flex, styles.flexRow, styles.alignCenter, styles.justifySpaceBetween]}>
+            <Text>{video?.filename}</Text>
+            <TouchableOpacity onPress={()=> {
+              setIsOpen(false)
+              navigation.navigate('DownloadScreen',{video:video})
+            }}>
+              <Icon as={FontAwesome} name={"download"} size={7}/>
+            </TouchableOpacity>
+        </View>
+        </Modal.Header>
         <Modal.Body>
           <View style={[styles.flex, styles.flexRow]}>
             <Text>{moment(video?.time).format('Y-MM-DD')} </Text>
@@ -48,7 +55,7 @@ const VideoModal = ({isOpen, setIsOpen, video}) => {
             ref={_video}
             style={{width:'100%',height:200}}
             source={{
-              uri: `${APP_API}${video?.href}`,
+              uri: `${axiosURI}${video?.href}`,
             }}
             useNativeControls
             resizeMode="contain"

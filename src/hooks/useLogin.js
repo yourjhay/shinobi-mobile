@@ -7,10 +7,11 @@ const useLogin = () => {
 
   let setLogin;
 
-  setLogin = async (res) => {
+  setLogin = async (res, uri) => {
     const jsonValue = JSON.stringify(res)
     await AsyncStorage.setItem('user', jsonValue)
     await AsyncStorage.setItem('token', res.auth_token)
+    await AsyncStorage.setItem('axiosURI', uri)
     setUser(res)
     setToken(res.auth_token)
   };
