@@ -6,9 +6,10 @@ import {AntDesign, Entypo, MaterialCommunityIcons, MaterialIcons} from "@expo/ve
 import {Center, Icon, Text} from "native-base";
 import logo from "../../assets/logo.png";
 import LogoutModal from "../LogoutModal";
+import {AuthContext} from "../../context/AuthContext";
 
 const SidebarNavigationMenu = ({navigation}) => {
-
+  const {axiosURI} = useContext(AuthContext)
   const state = navigation.getState();
   const [isOpen,setIsOpen] = useState(false);
 
@@ -43,7 +44,7 @@ const SidebarNavigationMenu = ({navigation}) => {
              )}
            />
            <DrawerItem
-             label={'Check for Updates'}
+             label={'Check For Updates'}
              focused={state.index === 2}
              onPress={()=>navigation.navigate('Update')}
              activeTintColor={colors.lightColor}
@@ -71,6 +72,7 @@ const SidebarNavigationMenu = ({navigation}) => {
             <Center>
               <Text fontSize={"xl"}>Shinobi Mobile</Text>
               <Text style={styles.textGray} bold>@ Rey Jhon</Text>
+              <Text style={styles.textGray} fontSize={"xs"}>Server: {axiosURI}</Text>
             </Center>
           </View>
         </View>

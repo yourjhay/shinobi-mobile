@@ -15,7 +15,7 @@ const HomeScreen = ({navigation}) => {
   const [loading,setLoading] = useState(false);
   const [data, setData] = useState([])
   const isFocused = useIsFocused();
-  const [random,setRandom] = useState('');
+  const [random,setRandom] = useState(Math.random());
   const [onLive, setOnLive] = useState(undefined)
   const [isLandScape, setIsLandScape] = useState(false);
   let timer;
@@ -62,6 +62,8 @@ const HomeScreen = ({navigation}) => {
   return (
     <SafeAreaView style={[styles.flex1, styles.backgroundDark, styles.p1]}>
       <Text fontSize={'xl'}>Monitors</Text>
+      <Text style={styles.textGray} fontSize={"sm"}>All Configured Monitors</Text>
+
       {
         loading && <ActivityIndicator style={"#fff"} size={"large"}/>
       }
@@ -70,7 +72,9 @@ const HomeScreen = ({navigation}) => {
           <View key={i} style={[styles.p1, styles.backgroundSemiDark, styles.rounded, styles.mY1]}>
             {
               onLive === undefined &&
-                <Image style={{width: '100%', height: 260}} source={{uri: `${axiosURI}${monitor.snapshot}?${random}`}}/>
+                <TouchableOpacity onPress={()=>navigation.navigate('Recordings',{monitor:monitor})}>
+                  <Image style={{width: '100%', height: 260, borderRadius:5}} source={{uri: `${axiosURI}${monitor.snapshot}?${random}`}}/>
+                </TouchableOpacity>
             }
             {
               onLive && onLive === monitor.mid &&

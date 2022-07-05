@@ -40,10 +40,10 @@ const Recordings = ({route,navigation}) => {
   const renderItem = ({item}) => (
     <View style={[styles.p1, styles.backgroundSemiDark, styles.rounded, styles.mY1_2, styles.flexRow, styles.justifySpaceBetween, styles.alignCenter]}>
         <TouchableOpacity onPress={()=>setVideo(item)} style={[styles.flex,styles.justifySpaceBetween]}>
-          <Text fontSize={"lg"} bold>{item.filename}</Text>
+          <Text style={styles.textGray} fontSize={"md"} bold>{item.filename}</Text>
           <View style={[styles.flex, styles.flexRow]}>
             <Text>{moment(item.time).format('Y-MM-DD')} </Text>
-            <Text bold style={styles.textGray}>({moment(item.time).format('hh:mm A')} - {moment(item.end).format('hh:mm A')} )</Text>
+            <Text bold>({moment(item.time).format('hh:mm A')} - {moment(item.end).format('hh:mm A')} )</Text>
           </View>
           <Text>{(item.size / 1048576).toFixed(2)} MB</Text>
         </TouchableOpacity>
@@ -73,6 +73,8 @@ const Recordings = ({route,navigation}) => {
   return (
     <SafeAreaView style={[styles.flex1, styles.backgroundDark, styles.p1]}>
       <Text fontSize={'xl'}>{monitor.name}: Latest Recordings</Text>
+      <Text style={styles.textGray} fontSize={"sm"}>All recording at current date.({moment().format('Y-MM-DD')})</Text>
+
       {
         open &&
         <VideoModal video={video} setIsOpen={()=>{

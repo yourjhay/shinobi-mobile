@@ -8,6 +8,7 @@ const UpdateScreen = () => {
   const [updating, setUpdating] =useState(false)
 
   const check = async () => {
+    setLoading(true)
     try {
       const update = await Updates.checkForUpdateAsync();
       if(update.isAvailable) {

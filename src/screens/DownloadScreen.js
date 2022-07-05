@@ -78,19 +78,22 @@ const DownloadScreen = ({route, navigation}) => {
   return (
     <SafeAreaView style={[styles.flex1, styles.backgroundDark, styles.p1]}>
       <Text fontSize={"lg"}>Download Recording</Text>
-      <View style={[styles.flex, styles.p3, styles.justifySpaceAround]}>
+      <Text style={styles.textGray} fontSize={"sm"}>Server: {axiosURI}</Text>
+      <View style={[styles.flex, styles.p2, styles.justifySpaceAround]}>
         <View style={[styles.p1, styles.bordered ,styles.rounded, styles.backgroundLightDark]}>
-          <Text style={styles.textGray}>{video.filename}</Text>
+          <Text fontSize={"lg"} bold>{moment(video.time).format('hh:mm A')} - {moment(video.end).format('hh:mm A')}</Text>
           <Text bold>{moment(video.time).format('MMMM DD Y')}</Text>
-          <Text bold>{moment(video.time).format('hh:mm A')} - {moment(video.end).format('hh:mm A')}</Text>
-          <Text style={styles.mB1}>{(video.size / 1048576).toFixed(2)} MB</Text>
+          <Text style={styles.textGray}>{video.filename}</Text>
+          <Text style={[styles.mB1, styles.textGray]} bold>{(video.size / 1048576).toFixed(2)} MB</Text>
           {
             downloading && <Progress colorScheme="emerald" value={(progress*100).toFixed(2)} />
           }
         </View>
       </View>
       {
-        !downloaded &&  <Button isLoading={downloading} startIcon={<Icon as={FontAwesome} name={"download"} size={5}/>} onPress={handleDownload}>Download</Button>
+        !downloaded &&  <View style={styles.p2}>
+          <Button isLoading={downloading} isLoadingText={"Downloading. Please Wait."} startIcon={<Icon as={FontAwesome} name={"download"} size={5}/>} onPress={handleDownload}>Download</Button>
+        </View>
       }
 
       {
