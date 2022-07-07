@@ -36,10 +36,10 @@ const AllRecordings = ({navigation}) => {
 
   const getVideos = async () => {
     setLoading(true)
-    const start = moment(selectedDay).format('YYYY-MM-DDTHH:mm:ss')
+    const start = moment(selectedDay).subtract(1,'hour').format('YYYY-MM-DDTHH:mm:ss')
     const end = moment(selectedDay).format('YYYY-MM-DDT23:59:59')
 
-    await videos(token,user.ke,mid,100,start,end).then(res=>{
+    await videos(token,user.ke,mid,120,start,end).then(res=>{
       console.log(res)
       setData(res.videos)
     }).catch(err=>{
