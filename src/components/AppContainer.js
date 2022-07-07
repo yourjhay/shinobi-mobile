@@ -4,7 +4,7 @@ import {styles} from "../styles/Styles";
 
 const AppContainer = (props) => {
   return (
-    <Box flex={props.flex} style={[styles.alignCenter, styles.justifyCenter]} p={props.padding} bg={useColorModeValue("warmGray.50", "black")}>
+    <Box flex={props.flex} style={[styles.alignCenter, styles.justifyCenter]} p={props.padding} bg={"black"}>
       {props.children}
     </Box>
   )

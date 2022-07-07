@@ -9,7 +9,7 @@ import "./src/utilities/config"
 
 export default function App() {
   return (
-    <NativeBaseProvider theme={theme}>
+    <NativeBaseProvider  theme={theme}>
       <StatusBar translucent backgroundColor={'#000'} />
       <AuthProvider>
         <Navigation/>

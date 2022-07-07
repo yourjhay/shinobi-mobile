@@ -28,7 +28,7 @@ const UpdateScreen = () => {
 
   return (
     <AppContainer>
-      <Button isLoading={loading} isLoadingText={"Checking for Updates"} onPress={check}>CHECK FOR UPDATES</Button>
+      <Button isLoading={loading} isLoadingText={!updating ? 'Checking for Updates':'Downloading Update. Please wait..'} onPress={check}>CHECK FOR UPDATES</Button>
     </AppContainer>
   )
 }

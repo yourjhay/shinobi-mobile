@@ -3,6 +3,7 @@
     "name": "shinobi",
     "slug": "shinobi",
     "version": "1.0.1",
+    "backgroundColor": "#000000",
     "splash": {
       "image": "./src/assets/splash.png",
       "resizeMode": "cover",
