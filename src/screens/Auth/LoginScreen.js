@@ -51,7 +51,7 @@ const LoginScreen = ({navigation}) => {
       <View style={styles.mB1}>
         <Image source={logo} style={{width:50,height:50}}/>
       </View>
-      <Text style={[styles.font20, styles.textSemiBold]}>Login</Text>
+      <Text style={[styles.font20, styles.textSemiBold]}>Sign in</Text>
       {
         feedback !== '' ?
           <Text style={[styles.textDanger, styles.mY1]}>{feedback}</Text>
